@@ -12,10 +12,12 @@
 
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item index="/login">Login</el-menu-item>
+      <el-menu-item index="/join">Join</el-menu-item>
       <el-menu-item index="/board">Board</el-menu-item>
       <el-menu-item index="/admin">Admin</el-menu-item>
+      
     </el-menu>
-    {{menu}}, {{logged}}
+    <!-- {{menu}}, {{logged}} -->
 
     <router-view></router-view>
   </div>

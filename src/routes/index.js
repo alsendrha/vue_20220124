@@ -8,12 +8,14 @@ import Home from '@/components/Home.vue';
 import Board from '@/components/Board.vue';
 import Login from '@/components/Login.vue';
 import Admin from '@/components/Admin.vue';
+import Join from '@/components/Join.vue';
 
 const routes = [
     {path : '/', name : "Home", component:Home },
     {path : '/board', name : "Board", component:Board },
     {path : '/login', name : "Login", component:Login },
     {path : '/admin', name : "Admin", component:Admin },
+    {path : '/join', name : "Join", component:Join },
 ]
 
 //localhost:8080/#/

@@ -11,6 +11,9 @@ import stores from './stores/index.js';
 import ElementPlus from 'element-plus';
 import 'element-plus/theme-chalk/index.css';
 
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
+
 
 //1 객체생성
 const app = createApp(App);
@@ -19,6 +22,8 @@ const app = createApp(App);
 app.use(routes);
 app.use(stores);
 app.use(ElementPlus);
+app.use(CKEditor);
+
 
 
 

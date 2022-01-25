@@ -9,6 +9,10 @@ import Board from '@/components/Board.vue';
 import Login from '@/components/Login.vue';
 import Admin from '@/components/Admin.vue';
 import Join from '@/components/Join.vue';
+import BoardContent from '@/components/BoardContent.vue';
+import Chart from '@/components/Chart.vue';
+import BoardWrite from '@/components/BoardWrite.vue';
+import Quill from '@/components/Quill.vue';
 
 const routes = [
     {path : '/', name : "Home", component:Home },
@@ -16,6 +20,10 @@ const routes = [
     {path : '/login', name : "Login", component:Login },
     {path : '/admin', name : "Admin", component:Admin },
     {path : '/join', name : "Join", component:Join },
+    {path : '/boardcontent', name : "BoardContent", component:BoardContent },
+    {path : '/chart', name : "Chart", component:Chart },
+    {path : '/boardwrite', name : "BoardWrite", component:BoardWrite },
+    {path : '/quill', name : "Quill", component:Quill },
 ]
 
 //localhost:8080/#/

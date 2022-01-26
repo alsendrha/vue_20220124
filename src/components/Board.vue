@@ -1,22 +1,42 @@
 <template>
     <div>
         <h3>src/components/Board.vue</h3>
-        <!-- <el-card shadow="always">
-            <el-table :data="state.item.result" style="width: 100%" @click="handleBoardContent(row)">
-                <el-table-column prop="no" label="no" width="180" />
+        <el-card shadow="always">
+            <el-table :data="state.item.result" style="width: 100%">
+                <el-table-column prop="_id" label="no" width="180" />
+                <template #default="scope">
+                    <div @click="handlePage(scope.row._id)" style="cursor:pointer;">
+                    {{scope.row._id}}
+                    </div>
+                </template>
                 <el-table-column prop="title" label="title" width="180" />
-                <el-table-column prop="weiter" label="weiter" />
+                <el-table-column prop="writer" label="writer" />
                 <el-table-column prop="hit" label="hit" />
+                <el-table-column prop="regdate" label="regdate" />
             </el-table>
-        </el-card> -->
+        </el-card>
+
+        <router-link to="/boardWrite">글쓰기</router-link>
 
        <table border="1">
+           <thead>
+               <tr>
+                   <th>no</th>
+                   <th>title</th>
+                   <th>regdate</th>
+                   <th>writer</th>
+                   <th>hit</th>
+               </tr>
+           </thead>
+           <tbody>
             <tr v-for="tmp in state.item.result" :key="tmp">
-                <td @click="handleBoardContent(tmp.no)">{{tmp.no}}</td>
+                <td @click="handleBoardContent(tmp._id)">{{tmp._id}}</td>
                 <td>{{tmp.title}}</td>
+                <td>{{tmp.regdate}}</td>
                 <td>{{tmp.writer}}</td>
                 <td>{{tmp.hit}}</td>
-            </tr>    
+            </tr>  
+           </tbody>  
         </table>
     </div>
 </template>
@@ -24,22 +44,28 @@
 <script>
 import {onMounted, reactive} from 'vue';
 import {useRouter} from 'vue-router';
+import axios from 'axios';
+
 export default {
     setup () { 
         const router = useRouter();
 
         const state = reactive({
             item : {},
+            page : 1,
+            text : ''
         });
 
         // 생명주기 onMounted()
-        onMounted(()=>{
-            //벡엔드로 데이터를 받음
-            state.item.result = [
-                {no:1, title:'가1', weiter:'b', hit:14  },
-                {no:2, title:'나1', weiter:'c', hit:24  },
-                {no:3, title:'다1', weiter:'d', hit:34  },
-            ];
+        onMounted(async()=>{
+            const url = `/board/select?page=${state.page}&text=${state.text}`;
+            const headers = {"Contect-Type":"application/json"};
+            const response = await axios.get(url, {headers});
+            console.log(response.data);
+            if(response.data.status===200){
+                state.item.result = response.data.rows;
+            }
+
         });
 
         const handleBoardContent = (no) => {

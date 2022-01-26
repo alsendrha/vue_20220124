@@ -22,10 +22,13 @@
 <script>
 import {reactive} from 'vue';
 import ClassisEditor from '@ckeditor/ckeditor5-build-classic';
+import axios from 'axios';
+import {useRouter} from 'vue-router';
 
 export default {
    
     setup () {
+        const router = useRouter();
 
         //object
         const editor = {
@@ -63,19 +66,25 @@ export default {
                 alert('제목을 입력하세요.');
                 return false;
             }
-            if(state.content === ''){
-                alert('내용을 입력하세요.');
-                return false;
-            }
+
             if(state.writer === ''){
                 alert('작성자를 입력하세요.');
                 return false;
             }
-            if(state.imgurl === ''){
-                alert('이미지를 등록하세요.');
-                return false;
-            }
 
+            const url = `/board/insert`;
+            const headers = {"Content-Type":"mulipart/form-data"};
+            const body = new FormData();
+            body.append("title", state.title);
+            body.append("contect", state.contect);
+            body.append("writer", state.writer);
+            body.append("image", state.imgdata);
+            const response = await axios.post(url, body, {headers});
+            console.log(response.data);
+            if(response.data.status===200){
+                alert('등록되었습니다');
+                router.push({name:'Board'});
+            }
         }
         
         return {state, handleImage, handleWrite, editor}

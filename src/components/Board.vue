@@ -3,12 +3,13 @@
         <h3>src/components/Board.vue</h3>
         <el-card shadow="always">
             <el-table :data="state.item.result" style="width: 100%">
-                <el-table-column prop="_id" label="no" width="180" />
+                <el-table-column prop="_id" label="no" width="180" >
                 <template #default="scope">
-                    <div @click="handlePage(scope.row._id)" style="cursor:pointer;">
+                    <div @click="handleBoardContent(scope.row._id)" style="cursor:pointer;">
                     {{scope.row._id}}
                     </div>
                 </template>
+                </el-table-column>
                 <el-table-column prop="title" label="title" width="180" />
                 <el-table-column prop="writer" label="writer" />
                 <el-table-column prop="hit" label="hit" />

@@ -61,7 +61,7 @@
             </el-form>
 
             <el-button type="primary" size="mini" round style="margin-left:75px" @click="handleJoin">회원가입</el-button>
-            <el-button type="primary" size="mini" round >홈으로</el-button>
+            <el-button type="primary" size="mini" round @click="hendleHome">홈으로</el-button>
         </el-card>
        
     </div>
@@ -70,11 +70,14 @@
 <script>
 import { axios } from 'axios'
 import { reactive, ref } from 'vue'
+import {useRouter} from 'vue-router';
 export default {
     setup () {
         // High레벨 변수 생성 : 오브젝트만 변화감지
         // 변수아닌 string으로 입력하면 동작 안함
         // 변수 1 리턴 2 화면 3
+
+        
         
         const state = reactive({
             userid     : '',
@@ -90,6 +93,8 @@ export default {
             emailoption : ['naver.com','gmail.com','daum.net']
 
         });
+
+        const router = useRouter();
 
 
         //Low 레벨 변수 생성 : 오브젝트가 아님
@@ -157,10 +162,14 @@ export default {
             
         }
 
+        const hendleHome = () => {
+            router.push({name : 'Home'})
+        };
 
 
 
-        return {state, username, handleJoin, userid, userpw, userpw1, userdate, useremail, useremail1 }
+
+        return {state, username, handleJoin, userid, userpw, userpw1, userdate, useremail, useremail1, hendleHome, router }
     }
 }
 </script>

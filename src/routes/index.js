@@ -13,6 +13,7 @@ import BoardContent from '@/components/BoardContent.vue';
 import Chart from '@/components/Chart.vue';
 import BoardWrite from '@/components/BoardWrite.vue';
 import Quill from '@/components/Quill.vue';
+import BoardUpdate from '@/components/BoardUpdate.vue';
 
 const routes = [
     {path : '/', name : "Home", component:Home },
@@ -24,6 +25,7 @@ const routes = [
     {path : '/chart', name : "Chart", component:Chart },
     {path : '/boardwrite', name : "BoardWrite", component:BoardWrite },
     {path : '/quill', name : "Quill", component:Quill },
+    {path : '/boardupdate', name : "BoardUpdate", component:BoardUpdate },
 ]
 
 //localhost:8080/#/

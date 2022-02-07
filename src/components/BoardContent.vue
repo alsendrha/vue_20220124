@@ -24,7 +24,7 @@
         <hr />
 
         <div v-for="tmp in state.reply" :key="tmp" >
-            <table border="1" class="one" style="width:500px">
+            <table border="1" class="one" style="width:500px" >  
                 <th>{{tmp._id}}</th>
                 <th >내용</th>
                 <td>{{tmp.content}}</td>
@@ -32,6 +32,7 @@
                 <td>{{tmp.writer}}</td>     
                 <button @click="handleReplyDelete(tmp._id)">삭제</button>         
             </table>
+            
              
         </div>
         <hr />

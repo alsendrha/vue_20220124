@@ -166,7 +166,7 @@ export default {
         };
 
 
-
+11
 
         return {state, handleEmailCheck, validEmail, username, handleJoin, userid, userpw, userpw1, hendleHome, router }
     }

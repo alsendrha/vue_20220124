@@ -24,11 +24,16 @@
 <script>
 import { reactive, ref } from 'vue';
 import {useRouter} from 'vue-router';
+import axios from 'axios';
+import {useStore} from 'vuex';
 export default {
     
 
     //ver 3.0
     setup () { // this를 사용할 수 없음
+
+        const store = useStore();
+
         const state = reactive({
             userid : '',
             userpw : '',
@@ -40,7 +45,7 @@ export default {
         const userid = ref(null);
         const userpw = ref(null);
 
-        const handleLogin = () =>{
+        const handleLogin = async() =>{
             console.log('로그인버튼 클릭', state.userid, state.userpw);
             if(state.userid===''){
                 alert('아이디를 입력해주세요.')
@@ -52,6 +57,23 @@ export default {
                 userid.value.focus();
                 return false;
             }
+
+            const url = `/member/select`;
+            const headers = {"Content-Type":"application/json"};
+            const body = {email : state.userid, password : state.userpw};
+            const response = await axios.post(url, body, {headers});
+            console.log(response.data.token);
+            if(response.data.status === 200){
+                sessionStorage.setItem("TOKEN", response.data.token);
+                alert('로그인되었습니다');
+
+                // 주소창만 바뀜
+                router.push({name:'Home'});
+
+                // App.vue에 메뉴의 선택항목을 변경하도록 알려줌
+                store.commit("setMenu", "/");
+                store.commit("setLogged", true);
+            }
             
         };
 
@@ -60,7 +82,7 @@ export default {
             
         }
 
-        return {state, handleLogin, handleJoin, userid, userpw, router}  // return에 넣어줘야됨
+        return {state, handleLogin, handleJoin, userid, userpw}  // return에 넣어줘야됨
     },
 
         //ver 2.0

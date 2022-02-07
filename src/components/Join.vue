@@ -3,10 +3,10 @@
         <el-card shadow="always">
             <el-form :inline="true"  >
                 <el-form-item  label="아이디" label-width="80px">
-                    <el-input  size="mini" ref="userid" v-model="state.userid" placeholder="아이디"/>
+                    <el-input  size="mini" ref="userid" v-model="state.userid" placeholder="아이디" @keyup="handleEmailCheck"/>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" size="mini" round >중복확인</el-button> 
+                    <el-button type="primary" size="mini" round >{{state.usermailcheck}}</el-button> 
                 </el-form-item>
             </el-form>
             
@@ -28,25 +28,6 @@
                 </el-form-item>
             </el-form>
 
-            <el-form :inline="true"  >
-            <el-form-item label="생일" label-width="80px" style="margin-top:-20px">
-                <el-date-picker type="date" size="mini" ref="userdate" v-model="state.userdate" placeholder="날짜선택"/>
-            </el-form-item>
-            </el-form>
-
-            <el-form :inline="true" style="margin-top:-20px" >
-                <el-form-item  label="이메일" label-width="80px" >
-                    <el-input  size="mini" ref="useremail" v-model="state.useremail" placeholder="이메일"/>
-                </el-form-item>
-             
-                <el-form-item>@</el-form-item>
-                <el-form-item>
-                        <el-select size="mini" ref="useremail1" v-model="state.useremail1" clearable placeholder="Select">
-                            <el-option  v-for="tmp in state.emailoption" :key="tmp" :label="tmp" :value="tmp">
-                            </el-option>
-                        </el-select>
-                </el-form-item>
-            </el-form>
 
             <el-form :inline="true" style="margin-top:-20px" >
                 <el-form-item label="이용약관" label-width="80px">
@@ -54,28 +35,27 @@
                 </el-form-item>
             </el-form>
 
-            <el-form :inline="true" style="margin-top:-20px" >
-                <el-form-item label=" " label-width="80px">
-                    <el-checkbox label="동의" v-model="state.userchk" size="large"></el-checkbox>
-                </el-form-item>
-            </el-form>
 
             <el-button type="primary" size="mini" round style="margin-left:75px" @click="handleJoin">회원가입</el-button>
             <el-button type="primary" size="mini" round @click="hendleHome">홈으로</el-button>
         </el-card>
+
        
     </div>
 </template>
 
 <script>
-import { axios } from 'axios'
+import axios from 'axios'
 import { reactive, ref } from 'vue'
 import {useRouter} from 'vue-router';
+import {useStore} from 'vuex';
 export default {
     setup () {
         // High레벨 변수 생성 : 오브젝트만 변화감지
         // 변수아닌 string으로 입력하면 동작 안함
         // 변수 1 리턴 2 화면 3
+
+        const store = useStore();
 
         
         
@@ -83,14 +63,9 @@ export default {
             userid     : '',
             userpw     : '',
             userpw1    : '',
-            userdate   : '',
             username   : '',
-            useremail  : '',
-            useremail1 : '',
+            usermailcheck : '중복확인',
             text       : '약관동의',
-            userchk    : false,
-
-            emailoption : ['naver.com','gmail.com','daum.net']
 
         });
 
@@ -101,10 +76,36 @@ export default {
         const userid = ref(null); //위에서 연결하면 aaa값은 의미가 없어짐
         const userpw = ref(null);
         const userpw1= ref(null);
-        const userdate= ref(null);
-        const useremail= ref(null);
-        const useremail1= ref(null);
         const username = ref(null);
+
+        //정확한 이메일 주소인지 확인
+        const validEmail = (email) => {
+            // 정규표현식
+            var re = /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]*$/i;
+            return re.test(email);
+        }
+
+        const handleEmailCheck = async() => {
+            if(validEmail(state.userid)){
+                console.log(state.userid);
+                const url = `/member/emailcheck?email=${state.userid}`;
+                const headers = {"Content-Type":"application/json"};
+                const response = await axios.get(url, {headers});
+                console.log(response.data);
+                if(response.data.status === 200){
+                    if(response.data.result === 1){
+                        state.usermailcheck = '사용불가';
+                    }
+                    else{
+                    state.usermailcheck = '사용가능';
+                    }
+                }
+            }
+             else{
+            state.usermailcheck = '중복확인';
+            }
+        }
+       
 
 
         const handleJoin = async() => {
@@ -133,32 +134,30 @@ export default {
                  username.value.focus();
                 return false;
             }
-            if(state.userdate===''){
-                alert('생일을 입력하세요.')
-                 userdate.value.focus();
-                return false;
-            }
-            if(state.useremail===''){
-                alert('이메일을 입력하세요.')
-                 useremail.value.focus();
-                return false;
-            }
-            //  if(state.useremail1===''){
-            //     alert('이메일을 입력하세요.')
-            //      useremail1.value.focus();
-            //     return false;
-            // }
-             if(state.userchk===''){
-                alert('동의를 클릭하세요.')
+
+            if(state.usermailcheck !== '사용가능'){
+                alert('이메일중복체크하세요.');
+                userid.value.focus();
                 return false;
             }
 
             //유효성 검증완료되는 시점에 벡엔드 연동
 
-            const url = "http://ihongss.com/json/exam13.json";
-            const headers = {"Content-type":"application/json"};
-            const response = await axios.get(url, {headers});
+            const url = `/member/insert`;
+            const headers = {"Content-Type":"application/json"};
+            const body = {email : state.userid, 
+                            password : state.userpw, 
+                            name : state.username};
+            const response = await axios.post(url, body, {headers});
             console.log(response.data);
+            if(response.data.status === 200){
+                alert('가입되었습니다');
+                router.push({name : 'Home'});
+
+                store.commit("setMenu", "/");
+                store.commit("setLogged", true);
+
+            }
             
         }
 
@@ -169,7 +168,7 @@ export default {
 
 
 
-        return {state, username, handleJoin, userid, userpw, userpw1, userdate, useremail, useremail1, hendleHome, router }
+        return {state, handleEmailCheck, validEmail, username, handleJoin, userid, userpw, userpw1, hendleHome, router }
     }
 }
 </script>

@@ -16,6 +16,8 @@ import Quill from '@/components/Quill.vue';
 import BoardUpdate from '@/components/BoardUpdate.vue';
 import Logout from '@/components/Logout.vue';
 import Mypage from '@/components/Mypage.vue';
+import Seller from '@/components/Seller.vue';
+import Menu1Insert from '@/components/seller/Menu1Insert.vue';
 
 const routes = [
     {path : '/', name : "Home", component:Home },
@@ -30,6 +32,8 @@ const routes = [
     {path : '/boardupdate', name : "BoardUpdate", component:BoardUpdate },
     {path : '/logout', name : "Logout", component:Logout },
     {path : '/mypage', name : "Mypage", component:Mypage },
+    {path : '/seller', name : "Seller", component:Seller },
+    {path : '/menu1insert', name : "Menu1Insert", component:Menu1Insert },
 ]
 
 //localhost:8080/#/

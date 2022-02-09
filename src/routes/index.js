@@ -14,6 +14,8 @@ import Chart from '@/components/Chart.vue';
 import BoardWrite from '@/components/BoardWrite.vue';
 import Quill from '@/components/Quill.vue';
 import BoardUpdate from '@/components/BoardUpdate.vue';
+import Logout from '@/components/Logout.vue';
+import Mypage from '@/components/Mypage.vue';
 
 const routes = [
     {path : '/', name : "Home", component:Home },
@@ -26,6 +28,8 @@ const routes = [
     {path : '/boardwrite', name : "BoardWrite", component:BoardWrite },
     {path : '/quill', name : "Quill", component:Quill },
     {path : '/boardupdate', name : "BoardUpdate", component:BoardUpdate },
+    {path : '/logout', name : "Logout", component:Logout },
+    {path : '/mypage', name : "Mypage", component:Mypage },
 ]
 
 //localhost:8080/#/

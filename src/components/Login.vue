@@ -72,6 +72,7 @@ export default {
 
                 // App.vue에 메뉴의 선택항목을 변경하도록 알려줌
                 store.commit("setMenu", "/");
+                // 로그인상태
                 store.commit("setLogged", true);
             }
             

@@ -7,8 +7,8 @@ const stores = createStore({
 
     // 공통 상태 변수
     state : {
-        menu   : sessionStorage.getItem("CURL"),
-        logged : false,
+        menu   : sessionStorage.getItem("CURL"), // 선택되는 메뉴
+        logged : false,                         // 로그인 상태
     },
 
     // 가져가기 (getter)
@@ -26,7 +26,7 @@ const stores = createStore({
         setMenu(state, value){
             state.menu = value;
         },
-        setlogged(state,value){
+        setLogged(state,value){
             state.logged = value;
         }
     },

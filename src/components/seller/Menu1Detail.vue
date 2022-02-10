@@ -15,6 +15,7 @@
                         <th>사진</th>
                     </tr>
                 </thead>
+                2
                 <tbody>
                     <tr>
                         <td>{{state.item._id}}</td>

@@ -23,8 +23,12 @@
 <script>
 import axios from 'axios';
 import { reactive } from 'vue';
+import { useRouter } from 'vue-router'; //페이지 이동시킴
 export default {
     setup () {
+
+        const router = useRouter();
+
         const state = reactive({
             cnt : 2,
             token : sessionStorage.getItem("TOKEN"),
@@ -63,14 +67,16 @@ export default {
                 state.cnt--; // 실제적으로 숫자를 뺌
                 //state.items의 마지막에 {}것을 제거
                 state.items.pop(); // 추가했던 항목의 마지막을 제거함
+                // push 추가 , pop 삭제
             }
         };
 
         // 파일을 첨부하거나 또는 취소하거나
         const handleImage = (e, idx) => {
+            console.log(e); // 첨부한 파일의 정보
+            console.log(idx); // 위치
+
             if(e.target.files[0]){
-                console.log(e); // 첨부한 파일의 정보
-                console.log(idx); // 위치
                 state.items[idx].image = e.target.files[0];
             }
             else{
@@ -81,6 +87,7 @@ export default {
         const handleInsertAction = async() => {
             const url = `/seller/insert`;
             const headers = {"Content-Type":"multipart/form-data", "token":state.token};
+            //이미지기 때문에 폼데이타로 보냄
             const body = new FormData();
             for(let i=0;i<state.items.length;i++){
                 body.append("image", state.items[i].image);
@@ -89,8 +96,13 @@ export default {
                 body.append("quantity", state.items[i].quantity);
                 body.append("content", state.items[i].content);
             }
-            const response = await axios.put(url, body, {headers});
+            const response = await axios.post(url, body, {headers});
             console.log(response.data);
+
+            if(response.data.status===200){
+                alert('등록했습니다');
+                router.push({name : "Seller"});
+            }
             
 
         }

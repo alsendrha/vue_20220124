@@ -19,6 +19,7 @@ import Mypage from '@/components/Mypage.vue';
 import Seller from '@/components/Seller.vue';
 import Menu1Insert from '@/components/seller/Menu1Insert.vue';
 import Menu1Detail from '@/components/seller/Menu1Detail.vue';
+import ItemContent from '@/components/ItemContent.vue';
 
 const routes = [
     {path : '/', name : "Home", component:Home },
@@ -36,6 +37,7 @@ const routes = [
     {path : '/seller', name : "Seller", component:Seller },
     {path : '/menu1insert', name : "Menu1Insert", component:Menu1Insert },
     {path : '/menu1detail', name : "Menu1Detail", component:Menu1Detail },
+    {path : '/itemcontent', name : "ItemContent", component:ItemContent },
 ]
 
 //localhost:8080/#/

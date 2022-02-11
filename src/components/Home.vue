@@ -38,8 +38,6 @@ import 'vueperslides/dist/vueperslides.css';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
-
-
 export default {
     components:{
         VueperSlides, VueperSlide
@@ -67,7 +65,22 @@ export default {
             if(response.data.status===200){
                 state.items = response.data.result;
 
-                //for(let i=0;i<state.items.length;i++)
+                // 15 % 4 => 3 => 1
+                // 14 % 4 => 2 => 2
+                // 13 % 4 => 1 => 3
+                // 12 % 4 => 0 => 0
+                const mod = Math.floor(state.items.length % 4);
+                for(let i=0;i< 4-mod;i++){
+                    state.items.push({
+                        constent : "준비중입니다.",
+                        imageUrl : require('../assets/default.png'),
+                        name : "준비중",
+                        price : 0,
+                        quantity : 0,
+                        seller : "",
+                        _id : 0
+                    })
+                }
             }
 
         }
@@ -77,11 +90,11 @@ export default {
 
         onMounted(async()=>{
             await handleLoadData();
-            await handleDetailPage();
+            
         });
         
 
-        return {state}
+        return {state, handleDetailPage }
     }
 }
 </script>

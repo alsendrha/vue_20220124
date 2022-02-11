@@ -9,7 +9,7 @@
             </el-form>
             <el-form :inline="true" >
                 <el-form-item label="암호" label-width="80px" style="margin-top:-20px">
-                    <el-input v-model="state.userpw" ref="userpw" size="mini" type="password" placeholder="암호"/>
+                    <el-input v-model="state.userpw" ref="userpw" size="mini" type="password" placeholder="암호" />
                 </el-form-item>
             </el-form>
             <el-button type="primary" size="mini" round style="margin-left:75px" @click="handleLogin">로그인</el-button>

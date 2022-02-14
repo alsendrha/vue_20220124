@@ -9,7 +9,7 @@
             </el-form>
             <el-form :inline="true" >
                 <el-form-item label="암호" label-width="80px" style="margin-top:-20px">
-                    <el-input v-model="state.userpw" ref="userpw" size="mini" type="password" placeholder="암호" />
+                    <el-input v-model="state.userpw" ref="userpw" size="mini" type="password" placeholder="암호" @keyup.enter="handleLogin"/>
                 </el-form-item>
             </el-form>
             <el-button type="primary" size="mini" round style="margin-left:75px" @click="handleLogin">로그인</el-button>
@@ -67,12 +67,22 @@ export default {
                 sessionStorage.setItem("TOKEN", response.data.token);
                 alert('로그인되었습니다');
 
-                // 주소창만 바뀜
-                router.push({name:'Home'});
+                const curl = sessionStorage.getItem("CURL");
+                if(curl === null){
 
-                // App.vue에 메뉴의 선택항목을 변경하도록 알려줌
-                store.commit("setMenu", "/");
-                // 로그인상태
+                    // 주소창만 바뀜
+                    router.push({name:'Home'});
+
+                    // App.vue에 메뉴의 선택항목을 변경하도록 알려줌
+                    store.commit("setMenu", "/");
+                    // 로그인상태
+                    store.commit("setLogged", true);
+                }
+                else{ // 이동하고자하는 페이지가 존재하면
+                    const query = JSON.parse(sessionStorage.getItem("CURL_QUERY"));
+                    const params = JSON.parse(sessionStorage.getItem("CURL_PARAMS"));
+                    router.push({name:curl, query:query, params:params});
+                }
                 store.commit("setLogged", true);
             }
             

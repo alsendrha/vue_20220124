@@ -24,7 +24,7 @@
 
              <el-form :inline="true"  >
                 <el-form-item  label="이름" label-width="80px" style="margin-top:-20px">
-                    <el-input  size="mini" ref="username"  v-model="state.username" placeholder="이름"/>
+                    <el-input  size="mini" ref="username"  v-model="state.username" placeholder="이름" @keyup.enter="handleJoin"/>
                 </el-form-item>
             </el-form>
 

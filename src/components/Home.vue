@@ -1,31 +1,31 @@
 <template>
-    <div style="padding:5px">
-        <h3>Home.vue</h3>
-        
-        <vueper-slides autoplay >
-            <vueper-slide v-for="tmp in state.slides" 
-                :key="tmp" 
-                :title="tmp.title" 
-                :image="tmp.image">
-            </vueper-slide>
-        </vueper-slides>
+  <div style="padding:5px">
+    <h3>Home.vue</h3>
+    
+    <vueper-slides autoplay >
+      <vueper-slide v-for="tmp in state.slides" 
+        :key="tmp" 
+        :title="tmp.title" 
+        :image="tmp.image">
+      </vueper-slide>
+    </vueper-slides>
 
-        <div v-if="state.items" style="margin-top:10px">
-            <el-row :gutter="20" v-for="(i, idx1) in state.items.length/4" :key="i" style="padding:20px">
-               <el-col :span="6" :gutter="5" v-for="(j, idx2) in 4" :key="j" >
-                    <div style="border:1px solid #cccccc;padding:20px; cursor:pointer"
-                        @click="handleDetailPage">
-                        {{idx1}}
-                        {{idx2}} 
-                        {{(idx1*4)+ idx2 }}<br />
-                        <img :src="state.items[ (idx1*4)+ idx2 ].imageUrl" style="width:100px;height:100px"/><br />
-                        {{state.items[ (idx1*4)+ idx2 ].name}}<br />
-                        {{state.items[ (idx1*4)+ idx2 ].price}}<br />
-                        {{state.items[ (idx1*4)+ idx2 ].content}}<br />
-                    </div>
-               </el-col>
-            </el-row>
-        </div>
+    <div v-if="state.items" style="margin-top:10px">
+      <el-row :gutter="20" v-for="(i, idx1) in state.items.length/4" :key="i" style="padding:20px">
+        <el-col :span="6" :gutter="5" v-for="(j, idx2) in 4" :key="j" >
+          <div style="border:1px solid #cccccc;padding:20px; cursor:pointer"
+            @click="handleDetailPage(state.items[(idx1 * 4) + idx2]._id)">
+            {{idx1}}
+            {{idx2}} 
+            {{(idx1*4)+ idx2 }}<br />
+            <img :src="state.items[ (idx1*4)+ idx2 ].imageUrl" style="width:100px;height:100px"/><br />
+            {{state.items[ (idx1*4)+ idx2 ].name}}<br />
+            {{state.items[ (idx1*4)+ idx2 ].price}}<br />
+            {{state.items[ (idx1*4)+ idx2 ].content}}<br />
+          </div>
+        </el-col>
+      </el-row>
+    </div>
 
 
     </div>
@@ -39,63 +39,63 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 export default {
-    components:{
-        VueperSlides, VueperSlide
-    },
+  components:{
+      VueperSlides, VueperSlide
+  },
 
-    setup () {
+  setup () {
 
-        const router = useRouter();
+    const router = useRouter();
 
-        const state = reactive({
-            slides : [
-                {title : 'a', image:'http://picsum.photos/500/300?image=1'},
-                {title : 'b', image:'http://picsum.photos/500/300?image=2'},
-                {title : 'c', image:'http://picsum.photos/500/300?image=3'},
-            ],
-            page : 1,
+    const state = reactive({
+      slides : [
+          {title : '', image:'http://picsum.photos/500/300?image=1'},
+          {title : '', image:'http://picsum.photos/500/300?image=2'},
+          {title : '', image:'http://picsum.photos/500/300?image=3'},
+      ],
+      page : 1,
 
-        });
+    });
 
-        const handleLoadData = async() => {
-            const url = `/shop/select?page=${state.page}`;
-            const headers = {"Content-Type":"application/json"};
-            const response = await axios.get(url, {headers});
-            console.log(response.data);
-            if(response.data.status===200){
-                state.items = response.data.result;
+    const handleLoadData = async() => {
+      const url = `/shop/select?page=${state.page}`;
+      const headers = {"Content-Type":"application/json"};
+      const response = await axios.get(url, {headers});
+      console.log(response.data);
+      if(response.data.status===200){
+          state.items = response.data.result;
 
-                // 15 % 4 => 3 => 1
-                // 14 % 4 => 2 => 2
-                // 13 % 4 => 1 => 3
-                // 12 % 4 => 0 => 0
-                const mod = Math.floor(state.items.length % 4);
-                for(let i=0;i< 4-mod;i++){
-                    state.items.push({
-                        constent : "준비중입니다.",
-                        imageUrl : require('../assets/default.png'),
-                        name : "준비중",
-                        price : 0,
-                        quantity : 0,
-                        seller : "",
-                        _id : 0
-                    })
-                }
-            }
-
+        // 15 % 4 => 3 => 1
+        // 14 % 4 => 2 => 2
+        // 13 % 4 => 1 => 3
+        // 12 % 4 => 0 => 0
+        const mod = Math.floor(state.items.length % 4);
+        for(let i=0;i< 4-mod;i++){
+          state.items.push({
+            constent : "준비중입니다.",
+            imageUrl : require('../assets/default.png'),
+            name : "준비중",
+            price : 0,
+            quantity : 0,
+            seller : "",
+            _id : 0
+          })
         }
-        const handleDetailPage = (code) => {
-            router.push({name:"ItemContent", query:{code:code}});
-        }
+      }
 
-        onMounted(async()=>{
-            await handleLoadData();
-            
-        });
-        
-
-        return {state, handleDetailPage }
     }
+    const handleDetailPage = (code) => {
+      router.push({name:"ItemContent", query:{code:code}});
+    }
+
+    onMounted(async()=>{
+      await handleLoadData();
+        
+    });
+    
+
+    return {state, handleDetailPage }
+  }
 }
 </script>
 

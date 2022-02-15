@@ -17,12 +17,13 @@
       <el-menu-item v-show="logged===true" index="/Seller">Seller</el-menu-item>
       <el-menu-item v-show="logged===true" index="/Mypage">Mypage</el-menu-item>
       <el-menu-item index="/board">Board</el-menu-item>
-     
       <el-menu-item index="/admin">Admin</el-menu-item>
       <el-menu-item index="/boardwrite">BoardWrite</el-menu-item>
       <el-menu-item index="/quill">Quill</el-menu-item>
       
+      
     </el-menu>
+    <div v-if="logged === true">{{uid}}, {{uname}}님 로그인</div>
     <!-- {{menu}}, {{logged}} -->
 
     <router-view></router-view>
@@ -48,6 +49,14 @@ export default {
     // store 의 logged값 실시간으로 확인
     const logged = computed(() => {
       return store.getters.getLogged
+    });
+
+    const uid = computed(() => {
+      return store.getters.getUid
+    });
+
+    const uname = computed(() => {
+      return store.getters.getUname
     });
 
     const state = reactive({
@@ -80,7 +89,7 @@ export default {
     })
     */
 
-    return {menu, logged, handleSelect, state}
+    return {menu, logged, handleSelect, state, uid, uname}
   }
 }
 </script>

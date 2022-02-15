@@ -3,7 +3,7 @@
         <h3>파일명 : src/components/mypage/Menu4.vue</h3>
         {{state}}
         <button @click="handleOrderDeleteAction">주문취소</button>
-        <div v-if="state.items">
+        <div v-if="state.items">e
             <table border="1" class="one">
                 <tr>
                     <th>체크</th>

@@ -72,7 +72,10 @@ export default {
         store.commit("setLogged", false);
       }
       else{
+        // mutations을 호출하는 경우
         store.commit("setLogged", true);
+        //
+        store.dispatch("handleData", {});
       }
     });
 

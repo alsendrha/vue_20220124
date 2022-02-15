@@ -1,5 +1,6 @@
 // npm i vuex@next --save
 import { createStore } from "vuex";
+import axios from "axios";
 
 // 모든 컴포넌트에서 공통으로 사용할 변수설정
 // props와 emit를 여기서 처리함.
@@ -46,9 +47,27 @@ const stores = createStore({
         }
     },
 
-    // 변경하기(action) : 기다려야 되는 상황
-    action : {
-        
+    // 변경하기(action) : 기다려야 되는 상황,
+    // 벡엔드 연동이 필요할 경우
+    actions : {
+        async handleData(context, payload){
+            console.log(payload);
+            const token = sessionStorage.getItem("TOKEN");
+            if(typeof token !== 'undefined' && token !== null){
+                const url = `/member/validation`;
+                const headers = {"Content-type":"application/json","token":token};
+                const response = await axios.get(url, {headers:headers});
+                console.log(response.data);
+                if(response.data.status===200){
+                    // mutations의 setUid, setUname을 호출해서 내용변경
+                    context.commit("setUid", response.data.uid);
+                    context.commit("setUname", response.data.uname);
+                }
+                else{
+                    console.log('aaa');
+                }
+            }
+        }
     }
 
 

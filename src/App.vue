@@ -13,13 +13,12 @@
       <el-menu-item index="/">Home</el-menu-item>
       <el-menu-item v-show="logged===false" index="/Login">Login</el-menu-item>
       <el-menu-item v-show="logged===true" index="/Logout">Logout</el-menu-item>
-      <el-menu-item index="/join">Join</el-menu-item>
+      <el-menu-item v-show="logged===false" index="/join">Join</el-menu-item>
       <el-menu-item v-show="logged===true" index="/Seller">Seller</el-menu-item>
       <el-menu-item v-show="logged===true" index="/Mypage">Mypage</el-menu-item>
       <el-menu-item index="/board">Board</el-menu-item>
       <el-menu-item index="/admin">Admin</el-menu-item>
-      <el-menu-item index="/boardwrite">BoardWrite</el-menu-item>
-      <el-menu-item index="/quill">Quill</el-menu-item>
+    
       
       
     </el-menu>

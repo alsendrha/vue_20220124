@@ -57,14 +57,14 @@ const stores = createStore({
                 const url = `/member/validation`;
                 const headers = {"Content-type":"application/json","token":token};
                 const response = await axios.get(url, {headers:headers});
-                console.log(response.data);
                 if(response.data.status===200){
                     // mutations의 setUid, setUname을 호출해서 내용변경
                     context.commit("setUid", response.data.uid);
                     context.commit("setUname", response.data.uname);
                 }
                 else{
-                    console.log('aaa');
+                    // 토큰의 유효성을 검사하여 통과하지 못할경우 
+                    context.commit("getLogged", false);
                 }
             }
         }

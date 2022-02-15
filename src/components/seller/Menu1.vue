@@ -5,9 +5,7 @@
         <button @click="handlePage">일괄추가</button>
         <button @click="handleDeleteBatchAction">일괄삭제</button>
         <button @click="handleUpdateBatchAction">일괄수정</button>
-        {{state.items}}
         <hr />
-        {{state.chk}}
         <table border="1" class="one">
             <tr>
                 <th>체크</th>

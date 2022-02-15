@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>src/components/seller/Menu4.vue</h3>
+        <h3>파일명 : src/components/seller/Menu5.vue</h3>
         <div style="width:500px;height:300px">
             <vue3-chart-js
                 :id = "state.id"
@@ -19,22 +19,22 @@ import {ref, onMounted, reactive} from 'vue';
 import Vue3ChartJs from '@j-t-mcc/vue3-chartjs'
 import axios from 'axios';
 export default {
-    components:{
+        components:{
         Vue3ChartJs
-    },
+        },
     setup () {
 
         const chartRef = ref(null)  // 차트를 업데이트 하기 위해 연결
 
         const state = reactive({
-            id : 'doughnut',
-            type: 'doughnut',
+            id : 'bar',
+            type: 'bar',
             data :{
                 labels : [], // 라벨
                 datasets : [
-                    {
+                    {   labels : '시간대별',
                         backgroundColor: [], // 색상
-                         data: [] // 데이터
+                        data: [] // 데이터
                     },
                 ]
             },
@@ -70,10 +70,9 @@ export default {
         onMounted(()=>{
             handleLoadData();
         })
+        
 
-
-
-        return {state, chartRef}
+        return {state, chartRef }
     }
 }
 </script>

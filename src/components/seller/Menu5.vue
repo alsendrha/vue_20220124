@@ -3,10 +3,8 @@
         <h3>파일명 : src/components/seller/Menu5.vue</h3>
         <div style="width:500px;height:300px">
             <vue3-chart-js
-                :id = "state.id"
-                :type = "state.type"
-                ref = "chartRef"
-                :data = "state.data">
+                v-bind = "state"
+                ref = "chartRef">
             </vue3-chart-js>
 
           
@@ -27,23 +25,23 @@ export default {
         const chartRef = ref(null)  // 차트를 업데이트 하기 위해 연결
 
         const state = reactive({
-            id : 'bar',
             type: 'bar',
             data :{
                 labels : [], // 라벨
                 datasets : [
-                    {   labels : '시간대별',
+                    {   
+                        label : '시간대별주문수량',
                         backgroundColor: [], // 색상
                         data: [] // 데이터
                     },
                 ]
             },
             token : sessionStorage.getItem("TOKEN")
-
         })
 
+        // 현재 로그인한 판매자를 조건으로 시간대별 주문수량
         const handleLoadData = async() => {
-            const url = `/seller/groupitem`;
+            const url = `/seller/grouphour`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);

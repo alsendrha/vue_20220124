@@ -35,6 +35,19 @@
                 </el-form-item>
             </el-form>
 
+            <el-form :inline="true"  >
+                <el-form-item  label="권한" label-width="80px" style="margin-top:-20px">
+                    <el-select v-model="state.userrole" size="mini" placeholder="Select">
+                        <el-option value="CUSTOMER" label="고객">고객</el-option>
+                        <el-option value="SELLER" label="판매자">판매자</el-option>
+                    </el-select>
+              </el-form-item>
+            </el-form>
+            <!-- 권한 : 
+            <select v-model="state.userrole">
+                <option value="CUSTOMER" >고객</option>
+                <option value="SELLER" >판매자</option>
+            </select><br /> -->
 
             <el-button type="primary" size="mini" round style="margin-left:75px" @click="handleJoin">회원가입</el-button>
             <el-button type="primary" size="mini" round @click="hendleHome">홈으로</el-button>
@@ -66,6 +79,7 @@ export default {
             username   : '',
             usermailcheck : '중복확인',
             text       : '약관동의',
+            userrole : 'CUSTOMER',
 
         });
 
@@ -145,9 +159,11 @@ export default {
 
             const url = `/member/insert`;
             const headers = {"Content-Type":"application/json"};
-            const body = {email : state.userid, 
+            const body = {  email    : state.userid, 
                             password : state.userpw, 
-                            name : state.username};
+                            name     : state.username,
+                            role     : state.userrole
+                            };
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
             if(response.data.status === 200){
@@ -155,7 +171,7 @@ export default {
                 router.push({name : 'Home'});
 
                 store.commit("setMenu", "/");
-                store.commit("setLogged", true);
+                store.commit("setLogged", false);
 
             }
             

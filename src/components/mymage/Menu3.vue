@@ -1,15 +1,12 @@
 <template>
     <div>
-        <h3>파일명 src/components/mypage/Menu3.vue</h3>
-        <el-card shadow="always">
-           
+        <h3>회원탈퇴</h3>
             <el-form :inline="true" >
                 <el-form-item label="암호" label-width="100px" style="margin-top:-20px">
-                    <el-input  size="mini" v-model="state.pw" type="password" placeholder="암호"/>
+                    <el-input  size="mini" v-model="state.pw" type="password" placeholder="암호" @keydown.enter.prevent="handleDeleteAction"/>
                 </el-form-item>
             </el-form>
             <el-button type="primary" size="mini" round style="margin-left:100px" @click="handleDeleteAction">탈퇴</el-button>
-        </el-card>
     </div>
 </template>
 
@@ -26,8 +23,6 @@ export default {
         const state = reactive({
             pw : '',
             token : sessionStorage.getItem("TOKEN"),
-
-
         });
 
         const handleDeleteAction = async() => {
@@ -50,10 +45,12 @@ export default {
                     // 로그인상태
                     store.commit("setLogged", false);
                 }
+                else{
+                    alert('암호가 틀렸습니다');
+                }
             }
         }
         
-
         return {state, handleDeleteAction}
     }
 }

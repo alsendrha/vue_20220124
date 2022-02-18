@@ -1,14 +1,12 @@
 <template>
     <div>
-        <h3>파일명 src/components/mypage/Menu1.vue</h3>
-        <el-card shadow="always">
+        <h3>정보수정</h3>
             <el-form :inline="true" >
                 <el-form-item  label="이름" label-width="100px">
                     <el-input  size="mini" v-model="state.name" placeholder="이름"/>
                 </el-form-item>
             </el-form>
             <el-button type="primary" size="mini" round style="margin-left:100px" @click="handleUpdateAction">정보변경</el-button>
-        </el-card>
     </div>
 </template>
 

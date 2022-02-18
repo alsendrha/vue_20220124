@@ -21,6 +21,7 @@ import Menu1Insert from '@/components/seller/Menu1Insert.vue';
 import Menu1Detail from '@/components/seller/Menu1Detail.vue';
 import ItemContent from '@/components/ItemContent.vue';
 import Order from '@/components/Order.vue';
+import Cart from '@/components/Cart.vue';
 
 const routes = [
     {path : '/', name : "Home", component:Home },
@@ -40,6 +41,7 @@ const routes = [
     {path : '/menu1detail', name : "Menu1Detail", component:Menu1Detail },
     {path : '/itemcontent', name : "ItemContent", component:ItemContent },
     {path : '/order', name : "Order", component:Order },
+    {path : '/cart', name : "Cart", component:Cart },
 ]
 
 //localhost:8080/#/

@@ -17,7 +17,6 @@
                 <th>내용</th>
                 <th>등록일</th>
                 <th>버튼</th>
-                
             </tr>
             <tr v-for="(item, idx) in state.items" :key="item">
                 <td><input type="checkbox" :value="item._id" v-model="state.chk" /></td>

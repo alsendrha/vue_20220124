@@ -9,7 +9,7 @@
             </el-form>
             <el-form :inline="true" >
                 <el-form-item label="암호" label-width="80px" style="margin-top:-20px">
-                    <el-input v-model="state.userpw" ref="userpw" size="mini" type="password" placeholder="암호" @keyup.enter="handleLogin"/>
+                    <el-input v-model="state.userpw" ref="userpw" size="mini" type="password" placeholder="암호" @keydown.enter.prevent="handleLogin"/>
                 </el-form-item>
             </el-form>
             <el-button type="primary" size="mini" round style="margin-left:75px" @click="handleLogin">로그인</el-button>
@@ -33,14 +33,13 @@ export default {
     setup () { // this를 사용할 수 없음
 
         const store = useStore();
+        const router = useRouter();
 
         const state = reactive({
             userid : '',
             userpw : '',
 
         });
-
-        const router = useRouter();
 
         const userid = ref(null);
         const userpw = ref(null);
@@ -68,10 +67,9 @@ export default {
                 sessionStorage.setItem("TOKEN", response.data.token);
                 alert('로그인 되었습니다');
 
-                // 이메일, 이름정보 (공통변수)
-                store.commit("setUid", response.data.uid);
-                store.commit("setUname", response.data.uname);
-
+                // actions를 호출하여 store/state변수를 변경함.
+                store.dispatch("handleData", {});
+              
                 const curl = sessionStorage.getItem("CURL");
                 if(curl === null){
 
@@ -88,9 +86,7 @@ export default {
                     const params = JSON.parse(sessionStorage.getItem("CURL_PARAMS"));
                     router.push({name:curl, query:query, params:params});
                 }
-                store.commit("setLogged", true);
             }
-            
         };
 
         const handleJoin = () => {

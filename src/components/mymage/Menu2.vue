@@ -1,7 +1,6 @@
 <template>
     <div>
-        <h3>파일명 src/components/mypage/Menu2.vue</h3>
-        <el-card shadow="always">
+        <h3>암호변경</h3>
             <el-form :inline="true" >
                 <el-form-item  label="기존암호" label-width="100px">
                     <el-input  size="mini" v-model="state.pw" placeholder="기존암호"/>
@@ -18,7 +17,6 @@
                 </el-form-item>
             </el-form>
             <el-button type="primary" size="mini" round style="margin-left:100px" @click="handleUpdateAction">변경</el-button>
-        </el-card>
     </div>
 </template>
 

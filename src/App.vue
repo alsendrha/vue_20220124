@@ -14,8 +14,8 @@
       <el-menu-item v-show="logged===false" index="/Login">Login</el-menu-item>
       <el-menu-item v-show="logged===true" index="/Logout">Logout</el-menu-item>
       <el-menu-item v-show="logged===false" index="/join">Join</el-menu-item>
-      <el-menu-item v-show="logged===true" index="/Seller">Seller</el-menu-item>
-      <el-menu-item v-show="logged===true" index="/Mypage">Mypage</el-menu-item>
+      <el-menu-item v-show="logged===true && urole === 'SELLER' " index="/Seller">Seller</el-menu-item>
+      <el-menu-item v-show="logged===true && urole === 'CUSTOMER' " index="/Mypage">Mypage</el-menu-item>
       <el-menu-item index="/board">Board</el-menu-item>
       <el-menu-item index="/admin">Admin</el-menu-item>
     
@@ -41,23 +41,31 @@ export default {
 
     //store값 가져오기
     // 마지막으로 방문한 페이지를 session저장소에 보관후에 반환
+    // 메뉴
     const menu = computed(() => {
       return store.getters.getMenu
     });
 
     // store 의 logged값 실시간으로 확인
+    // 로그인상태(로그인 T, 로그아웃 F)
     const logged = computed(() => {
       return store.getters.getLogged
     });
 
+    // 아이디 정보(로그인 정보추가, 로그아웃 정보제거)
     const uid = computed(() => {
       return store.getters.getUid
     });
-
+    // 아이디 정보(로그인 정보추가, 로그아웃 정보제거)
     const uname = computed(() => {
       return store.getters.getUname
     });
-
+    // 아이디 정보(로그인 정보추가, 로그아웃 정보제거)
+    // SELLER, CUSTOMER
+    const urole = computed(() => {
+      return store.getters.getUrole
+    });
+    // store에서 읽은 메뉴값으로 초기값으로 세팅
     const state = reactive({
       activeIndex : menu
     });
@@ -73,7 +81,7 @@ export default {
       else{
         // mutations을 호출하는 경우
         store.commit("setLogged", true);
-        //
+        // actions를 호출할 경우
         store.dispatch("handleData", {});
       }
     });
@@ -91,7 +99,7 @@ export default {
     })
     */
 
-    return {menu, logged, handleSelect, state, uid, uname}
+    return {menu, logged, handleSelect, state, uid, uname, urole}
   }
 }
 </script>

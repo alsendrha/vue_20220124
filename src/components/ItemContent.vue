@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3>파일명 : src/components/ItemContent.vue</h3>
-        {{state}}
+
         <div v-if="state.item">
             <table border="1"  >
                 <thead>
@@ -28,11 +28,12 @@
                         </select>
 
                         <button @click="handleOrderActon">주문하기</button>
+                        <button @click="handleCartActon">장바구니</button>
+                        <button @click="handleCartList">장바구니목록</button>
                     </tr>
                 </tbody>
             </table>
-        </div>  
-
+        </div> 
     </div>
 </template>
 
@@ -51,6 +52,25 @@ export default {
             code : route.query.code,
            
         });
+
+        const handleCartActon = async() => {
+            const url = `/shop/insertcart`;
+            const headers = {"Content-Type":"application/json"};
+            // 물품번호, 수량, 로그인하지 않은 사용자의 정보
+            const body = {
+                code : state.item._id,
+                cnt : state.item.ordercnt
+            };
+            const response = await axios.post(url, body, {headers});
+            console.log(response.data);
+            if(response.data.status===200){
+                alert('장바구니에 넣었습니다');
+            }
+        }
+
+        const handleCartList = async() => {
+            router.push({name:'Cart'});
+        }
 
         const handleOrderActon = async() => {
             router.push({name : "Order", query : {code:state.item._id, cnt : state.item.ordercnt}});
@@ -72,7 +92,7 @@ export default {
         });
         
 
-        return {state, handleOrderActon}
+        return {state, handleCartList, handleCartActon, handleOrderActon}
     }
 }
 </script>

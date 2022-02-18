@@ -1,9 +1,8 @@
 <template>
     <div>
-        <h3>파일명 : src/components/mypage/Menu4.vue</h3>
-        {{state}}
+        <h3>주문내역</h3>
         <button @click="handleOrderDeleteAction">주문취소</button>
-        <div v-if="state.items">e
+        <div v-if="state.items">
             <table border="1" class="one">
                 <tr>
                     <th>체크</th>

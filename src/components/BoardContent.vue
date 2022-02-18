@@ -16,37 +16,35 @@
             </el-card>
             <hr />
 
-        <router-link to="/board"><button>목록으로</button></router-link>
-        <button @click="handleDelete">삭제</button>
-        <button @click="handleUpdate">수정</button>
-        <button v-if="state.item.prev" @click="handleData(1)">이전글</button>
-        <button v-if="state.item.next" @click="handleData(2)">다음글</button>
-        <hr />
+            <router-link to="/board"><button>목록으로</button></router-link>
+            <button @click="handleDelete">삭제</button>
+            <button @click="handleUpdate">수정</button>
+            <button v-if="state.item.prev" @click="handleData(1)">이전글</button>
+            <button v-if="state.item.next" @click="handleData(2)">다음글</button>
+            <hr />
 
-        <div v-for="tmp in state.reply" :key="tmp" >
-            <table border="1" class="one" style="width:500px" >  
-                <th>{{tmp._id}}</th>
-                <th >내용</th>
-                <td>{{tmp.content}}</td>
-                <th>작성자</th>
-                <td>{{tmp.writer}}</td>     
-                <button @click="handleReplyDelete(tmp._id)">삭제</button>         
-            </table>
-            
-             
-        </div>
-        <hr />
-        <el-form :inline="true">
-                <el-form-item label="" >
-                    <el-input :span="10" v-model="state.reply1.content" placeholder="댓글내용"/>
-                </el-form-item>
-                <el-form-item label="" >
-                    <el-input v-model="state.reply1.writer" placeholder="작성자"/>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" round @click="handleReplyAction">댓글저장</el-button>
-                </el-form-item>
-        </el-form>
+            <div v-for="tmp in state.reply" :key="tmp" >
+                <table border="1" class="one" style="width:500px" >  
+                    <th>{{tmp._id}}</th>
+                    <th >내용</th>
+                    <td>{{tmp.content}}</td>
+                    <th>작성자</th>
+                    <td>{{tmp.writer}}</td>     
+                    <button @click="handleReplyDelete(tmp._id)">삭제</button>         
+                </table>
+            </div>
+            <hr />
+            <el-form :inline="true">
+                    <el-form-item label="" >
+                        <el-input :span="10" v-model="state.reply1.content" placeholder="댓글내용"/>
+                    </el-form-item>
+                    <el-form-item label="" >
+                        <el-input v-model="state.reply1.writer" placeholder="작성자"/>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" round @click="handleReplyAction">댓글저장</el-button>
+                    </el-form-item>
+            </el-form>
         </div>
 
     </div>

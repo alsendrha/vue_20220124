@@ -54,6 +54,10 @@ export default {
         });
 
         const handleCartActon = async() => {
+            if(typeof state.item.ordercnt === 'undefined'){
+                alert('수량을 선택해주세요');
+                return false;
+            }
             const url = `/shop/insertcart`;
             const headers = {"Content-Type":"application/json"};
             // 물품번호, 수량, 로그인하지 않은 사용자의 정보
@@ -73,6 +77,10 @@ export default {
         }
 
         const handleOrderActon = async() => {
+            if(typeof state.item.ordercnt === 'undefined'){
+                alert('수량을 선택해주세요');
+                return false;
+            }
             router.push({name : "Order", query : {code:state.item._id, cnt : state.item.ordercnt}});
         }
 

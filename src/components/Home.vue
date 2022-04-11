@@ -2,13 +2,15 @@
   <div style="padding:5px">
     <h3>Home.vue</h3>
     
-    <vueper-slides autoplay >
+    <vueper-slides autoplay style="width:500px; height:100px" >
       <vueper-slide v-for="tmp in state.slides" 
         :key="tmp" 
         :title="tmp.title" 
         :image="tmp.image">
       </vueper-slide>
     </vueper-slides>
+    <br /><br /><br /><br /><br />
+    <hr />
 
     <div v-if="state.items" style="margin-top:10px">
       <el-row :gutter="20" v-for="(i, idx1) in state.items.length/4" :key="i" style="padding:20px">

@@ -19,26 +19,7 @@
 
         <router-link to="/boardWrite">글쓰기</router-link>
 
-       <table border="1">
-           <thead>
-               <tr>
-                   <th>no</th>
-                   <th>title</th>
-                   <th>regdate</th>
-                   <th>writer</th>
-                   <th>hit</th>
-               </tr>
-           </thead>
-           <tbody>
-            <tr v-for="tmp in state.item.result" :key="tmp">
-                <td @click="handleBoardContent(tmp._id)">{{tmp._id}}</td>
-                <td>{{tmp.title}}</td>
-                <td>{{tmp.regdate}}</td>
-                <td>{{tmp.writer}}</td>
-                <td>{{tmp.hit}}</td>
-            </tr>  
-           </tbody>  
-        </table>
+       
     </div>
 </template>
 

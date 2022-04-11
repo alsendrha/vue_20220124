@@ -1,31 +1,65 @@
 <template>
   <div>
-    <!-- ElMenu.vue -->
-    <!-- Props로 default-active 숫자값을 전달 -->
-    <!-- Props로 router TRUE값을 전달 -->
-    <!-- 자식컴포넌트 emit를 통해서 select이벤트 -->
-    <el-menu :default-active="state.activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      :router="true"
-      @select="handleSelect">
-
-      <el-menu-item index="/">Home</el-menu-item>
-      <el-menu-item v-show="logged===false" index="/Login">Login</el-menu-item>
-      <el-menu-item v-show="logged===true" index="/Logout">Logout</el-menu-item>
-      <el-menu-item v-show="logged===false" index="/join">Join</el-menu-item>
-      <el-menu-item v-show="logged===true && urole === 'SELLER' " index="/Seller">Seller</el-menu-item>
-      <el-menu-item v-show="logged===true && urole === 'CUSTOMER' " index="/Mypage">Mypage</el-menu-item>
-      <el-menu-item index="/board">Board</el-menu-item>
-      <el-menu-item index="/admin">Admin</el-menu-item>
-    
-      
-      
-    </el-menu>
+    <el-header>
+      <el-menu :default-active="state.activeIndex"
+        class="el-menu-demo"
+        mode="horizontal"
+        :router="true"
+        @select="handleSelect"><h3>상단메뉴</h3>
+        <el-menu-item index="/">메인</el-menu-item>
+        <el-menu-item v-show="logged===false" index="/Login">로그인</el-menu-item>
+        <el-menu-item v-show="logged===true" index="/Logout">로그아웃</el-menu-item>
+        <el-menu-item v-show="logged===false" index="/join">회원가입</el-menu-item>
+        <el-menu-item v-show="logged===true && urole === 'SELLER' " index="/Seller">Seller</el-menu-item>
+        <el-menu-item v-show="logged===true && urole === 'CUSTOMER' " index="/Mypage">Mypage</el-menu-item>
+        <el-menu-item index="/board">챌린지</el-menu-item>
+        <el-menu-item index="/admin">1:1문의</el-menu-item>
+        <el-menu-item index="/admin">관리자(안보임 관리자전용)</el-menu-item>
+      </el-menu>
+    </el-header>
+    <el-container>
+        <el-aside width="200px">
+          <h3 style="margin-left:20px">세부메뉴</h3>
+          <el-menu
+    :default-active="activeIndex"
+    class="el-menu-demo"
+    mode="vertical"
+    @select="handleSelect"
+  >
+    <el-sub-menu index="2">
+      <template #title>세부메뉴1</template>
+      <el-menu-item index="2-1">item1</el-menu-item>
+      <el-menu-item index="2-2">item2</el-menu-item>
+      <el-menu-item index="2-3">item3</el-menu-item>
+    </el-sub-menu>
+      <el-sub-menu index="3">
+        <template #title>세부메뉴2</template>
+        <el-menu-item index="3-1">item1</el-menu-item>
+        <el-menu-item index="3-2">item2</el-menu-item>
+        <el-menu-item index="3-3">item3</el-menu-item>
+    </el-sub-menu>
+    <el-sub-menu index="4">
+      <template #title>세부메뉴3</template>
+      <el-menu-item index="4-1" disabled>item1</el-menu-item>
+      <el-menu-item index="4-2" disabled>item2</el-menu-item>
+      <el-menu-item index="4-3" disabled>item3</el-menu-item>
+    </el-sub-menu>
+    <el-sub-menu index="5">
+      <template #title>세부메뉴4</template>
+    <el-menu-item index="5-1">item1</el-menu-item>
+    <el-menu-item index="5-2">item2</el-menu-item>
+    <el-menu-item index="5-3">item3</el-menu-item>
+    </el-sub-menu>
+  </el-menu>
+        </el-aside>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+      </el-container>
     <div v-if="logged === true">{{uid}}, {{uname}}님 로그인</div>
     <!-- {{menu}}, {{logged}} -->
 
-    <router-view></router-view>
+    
   </div>
 </template>
 

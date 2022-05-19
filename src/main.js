@@ -11,6 +11,7 @@ import stores from './stores/index.js';
 import ElementPlus from 'element-plus';
 import 'element-plus/theme-chalk/index.css';
 
+// CKEditor
 import CKEditor from '@ckeditor/ckeditor5-vue';
 
 

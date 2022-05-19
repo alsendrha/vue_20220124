@@ -15,9 +15,10 @@
         <el-menu-item index="/board">챌린지</el-menu-item>
         <el-menu-item index="/admin">1:1문의</el-menu-item>
         <el-menu-item index="/admin">관리자(안보임 관리자전용)</el-menu-item>
+        <div v-if="logged === true">{{uid}}, {{uname}}님 로그인</div>
       </el-menu>
     </el-header>
-    <el-container>
+        <el-container>
         <el-aside width="200px">
           <h3 style="margin-left:20px">세부메뉴</h3>
           <el-menu
@@ -56,6 +57,7 @@
           <router-view></router-view>
         </el-main>
       </el-container>
+    
     <div v-if="logged === true">{{uid}}, {{uname}}님 로그인</div>
     <!-- {{menu}}, {{logged}} -->
 
